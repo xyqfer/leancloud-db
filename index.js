@@ -3,4 +3,5 @@ module.exports = {
     getData: require('./libs/getData'),
     saveData: require('./libs/saveData'),
     updateData: require('./libs/updateData'),
+    setHook: require('./libs/setHook'),
 };

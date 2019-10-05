@@ -1,6 +1,6 @@
 {
   "name": "leancloud-db",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "leancloud storage db utils",
   "main": "index.js",
   "scripts": {
