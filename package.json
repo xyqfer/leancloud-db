@@ -1,10 +1,11 @@
 {
-  "name": "leancloud-db",
+  "name": "@xyqfer/leancloud-db",
   "version": "1.1.0",
   "description": "leancloud storage db utils",
   "main": "index.js",
   "scripts": {
-    "test": "node test.js"
+    "test": "node test.js",
+    "publish": "npm publish --access=public --registry=https://registry.npmjs.org/"
   },
   "repository": {
     "type": "git",
