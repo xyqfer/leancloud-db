@@ -17,7 +17,7 @@ module.exports = async ({ dbName = '', hookName = [], cb = () => {}, }) => {
             hookSet.add(setItem);
 
             AV.Cloud[name](dbName, async (request) => {
-                return await cb(request);
+                return await cb(request, name);
             });
         }
     });
