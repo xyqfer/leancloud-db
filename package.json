@@ -1,0 +1,28 @@
+{
+  "name": "leancloud-db",
+  "version": "1.0.0",
+  "description": "leancloud storage db utils",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xyqfer/leancloud-db.git"
+  },
+  "keywords": [
+    "db",
+    "storage",
+    "utils"
+  ],
+  "author": "liangliang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xyqfer/leancloud-db/issues"
+  },
+  "homepage": "https://github.com/xyqfer/leancloud-db#readme",
+  "dependencies": {
+    "leanengine": "^3.4.0",
+    "lodash": "^4.17.15"
+  }
+}
