@@ -1,6 +1,6 @@
 {
   "name": "@xyqfer/leancloud-db",
-  "version": "1.2.3",
+  "version": "1.3.0",
   "description": "leancloud storage db utils",
   "main": "index.js",
   "scripts": {
@@ -23,8 +23,10 @@
   },
   "homepage": "https://github.com/xyqfer/leancloud-db#readme",
   "dependencies": {
-    "leancloud-storage": "^3.15.0",
-    "leanengine": "^3.4.0",
+    "bluebird": "^3.7.0",
     "lodash": "^4.17.15"
+  },
+  "peerDependencies": {
+    "leanengine": "^3.4.0"
   }
 }
