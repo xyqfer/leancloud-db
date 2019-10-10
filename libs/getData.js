@@ -44,7 +44,9 @@ module.exports = async ({ dbName = '', limit = MAX_PER_TIME, query = {}, }) => {
     const times = Math.floor(limit / MAX_PER_TIME);
     const offsets = _.times(times, _.constant(MAX_PER_TIME));
     const remaining = limit - times * MAX_PER_TIME;
-    offsets.push(remaining);
+    if (remaining > 0) {
+        offsets.push(remaining);
+    }
 
     const dbData = await Promise.mapSeries(offsets, async (offset) => {
         const dbData = await getData({

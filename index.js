@@ -6,4 +6,5 @@ module.exports = {
     updateData2: require('./libs/updateData2'),
     setHook: require('./libs/setHook'),
     syncEnv: require('./libs/syncEnv'),
+    cache: require('./libs/cache'),
 };
