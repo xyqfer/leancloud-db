@@ -25,7 +25,7 @@ const get = async ({ dbName, }) => {
     return cacheMap.get(dbName) || [];
 };
 
-const findAndSet = async ({ dbName, source, key, }) => {
+const findAndSet = async ({ dbName, source, key, concurrency = 3, }) => {
     const dbData = cacheMap.get(dbName);
     let newData = differenceBy(source, dbData, key);
 
@@ -40,7 +40,7 @@ const findAndSet = async ({ dbName, source, key, }) => {
 
         return dbItem.length === 0;
     }, {
-        concurrency: 1,
+        concurrency,
     });
 
     if (newData.length > 0) {
