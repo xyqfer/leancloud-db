@@ -1,4 +1,3 @@
-const Promise = require('bluebird');
 const differenceBy = require('lodash/differenceBy');
 const getData = require('./getData');
 const saveData = require('./saveData');
@@ -25,34 +24,34 @@ const get = async ({ dbName, }) => {
     return cacheMap.get(dbName) || [];
 };
 
-const findAndSet = async ({ dbName, source, key, concurrency = 3, }) => {
+const findAndSet = async ({ dbName, source, key, }) => {
     const dbData = cacheMap.get(dbName);
     let newData = differenceBy(source, dbData, key);
 
-    newData = await Promise.filter(newData, async (item) => {
-        const dbItem = await getData({
+    if (newData.length > 0) {
+        const containedInKeys = newData.map((item) => {
+            return item[key];
+        });
+        const containedData = await getData({
             dbName,
-            limit: 1,
             query: {
-                equalTo: [key, item[key]],
+                containedIn: [key, containedInKeys],
+                select: [key],
             },
         });
-
-        return dbItem.length === 0;
-    }, {
-        concurrency,
-    });
-
-    if (newData.length > 0) {
-        const mapData = cacheMap.get(dbName);
-        newData.forEach((data) => {
-            mapData.unshift(data);
-        });
-
-        await saveData({
-            dbName,
-            data: newData,
-        });
+        newData = differenceBy(newData, containedData, key);
+    
+        if (newData.length > 0) {
+            const mapData = cacheMap.get(dbName);
+            newData.forEach((data) => {
+                mapData.unshift(data);
+            });
+    
+            await saveData({
+                dbName,
+                data: newData,
+            });
+        }
     }
 
     return newData;
