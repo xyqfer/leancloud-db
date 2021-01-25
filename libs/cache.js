@@ -24,22 +24,38 @@ const get = async ({ dbName, }) => {
     return cacheMap.get(dbName) || [];
 };
 
+const findNewData = async ({ dbName, data, key, }) => {
+  let newData = data;
+
+  while (true) {
+    const containedInKeys = newData.map((item) => {
+        return item[key];
+    });
+    const containedData = await getData({
+        dbName,
+        query: {
+            containedIn: [key, containedInKeys],
+            select: [key],
+        },
+    });
+    newData = differenceBy(newData, containedData, key);
+
+    if (containedData.length < 1000) break;
+  }
+
+  return newData;
+};
+
 const findAndSet = async ({ dbName, source, key, }) => {
     const dbData = cacheMap.get(dbName);
     let newData = differenceBy(source, dbData, key);
 
     if (newData.length > 0) {
-        const containedInKeys = newData.map((item) => {
-            return item[key];
+        newData = await findNewData({
+          dbName,
+          data: newData,
+          key,
         });
-        const containedData = await getData({
-            dbName,
-            query: {
-                containedIn: [key, containedInKeys],
-                select: [key],
-            },
-        });
-        newData = differenceBy(newData, containedData, key);
     
         if (newData.length > 0) {
             const mapData = cacheMap.get(dbName);
