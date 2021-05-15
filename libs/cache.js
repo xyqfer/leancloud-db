@@ -38,9 +38,12 @@ const findNewData = async ({ dbName, data, key, }) => {
             select: [key],
         },
     });
-    newData = differenceBy(newData, containedData, key);
 
-    if (containedData.length < 1000) break;
+    if (containedData.length <= 0) {
+      break;
+    } else {
+      newData = differenceBy(newData, containedData, key);
+    }
   }
 
   return newData;
