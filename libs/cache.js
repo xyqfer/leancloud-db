@@ -73,6 +73,10 @@ const findAndSet = async ({ dbName, source, key, }) => {
         }
     }
 
+    setTimeout(() => {
+      cacheMap.delete(dbName);
+    }, 5 * 60 * 1000);
+
     return newData;
 };
 
