@@ -61,11 +61,6 @@ const findAndSet = async ({ dbName, source, key, }) => {
         });
     
         if (newData.length > 0) {
-            const mapData = cacheMap.get(dbName);
-            newData.forEach((data) => {
-                mapData.unshift(data);
-            });
-    
             await saveData({
                 dbName,
                 data: newData,

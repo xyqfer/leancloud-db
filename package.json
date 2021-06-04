@@ -1,6 +1,6 @@
 {
   "name": "@xyqfer/leancloud-db",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "leancloud storage db utils",
   "main": "index.js",
   "scripts": {
